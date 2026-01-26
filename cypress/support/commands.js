@@ -1,25 +1,16 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+Cypress.Commands.add("login", (users) =>{
+    cy.visit('https://desa.activa-it.net/');
+    cy.get('.close-btn-informativo').click();
+    cy.contains('Ingreso Usuarios').click();
+    cy.get('#loginForm').within(()=>{
+        cy.get('[name="user"]').type(users.username);
+        cy.get('[name="pass"]').type(users.password);
+    });
+    cy.get('#btnLogin').click();
+    })
+
+Cypress.Commands.add("visitRDL", () =>{
+    cy.visit('https://desa.activa-it.net:8019/');
+    cy.get('.close-btn-informativo').click();
+    cy.get('a[href="/App_Customs/Externas/RadicacionLight/RadicacionLight.aspx"]').first().click({ force: true })
+})

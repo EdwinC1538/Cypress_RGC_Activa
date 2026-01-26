@@ -1,17 +1,19 @@
-// ***********************************************************
-// This example support/e2e.js is processed and
-// loaded automatically before your test files.
-//
-// This is a great place to put global configuration and
-// behavior that modifies Cypress.
-//
-// You can change the location of this file or turn off
-// automatically serving support files with the
-// 'supportFile' configuration option.
-//
-// You can read more here:
-// https://on.cypress.io/configuration
-// ***********************************************************
+const ignoredErrors = [
+  'Swiper is not defined',
+  'grecaptcha is not defined',
+  "Unexpected token '<'",
+  "Identifier 'enviroment' has already been declared",
+  "Cannot read properties of null (reading 'classList')",
+  "Cannot read properties of null (reading 'length')",
+  "Cannot read properties of null (reading 'addEventListener')",
+  "Cannot read properties of undefined (reading 'eunO_Activo')",
+  'parent.$ is not a function',
+]
 
-// Import commands.js using ES2015 syntax:
+Cypress.on('uncaught:exception', (err) => {
+  return !ignoredErrors.some(errorMsg =>
+    err.message.includes(errorMsg)
+  )
+})
+
 import './commands'
